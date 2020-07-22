@@ -1,0 +1,444 @@
+swagger: "2.0"
+info:
+  description: Poll Creation, Submission and View #This is the swagger file that goes with our server code
+  version: "1.0.0"
+  title: Poll Management API
+consumes:
+  - application/json
+produces:
+  - application/json
+
+basePath: /api
+
+# Paths supported by the server application
+paths:
+  /poll:
+    get:
+      operationId: poll.read_all
+      tags:
+        - Poll
+      summary: Read 3 recent polls
+      description: Read 3 recent polls
+      responses:
+        200:
+          description: Successfully read polls
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                pollid:
+                  type: integer
+                  description: Id of the poll
+                pollname:
+                  type: string
+                  description: Name of the poll
+
+
+  /poll/create:
+    post:
+      operationId: poll.create
+      tags:
+        - Poll
+      summary: Create a poll
+      description: Create a new poll
+      parameters:
+        - name: poll
+          in: body
+          description: Poll to create
+          schema:
+            type: object
+            items:
+              properties:
+                pollname:
+                  type: string
+                  description: Name of poll to create
+                questions:
+                  type: array
+                  additionalProperties:
+                    type: object
+                    properties:
+                      settings:
+                        type: object
+                        additionalProperties:
+                          type: object
+                          properties:
+                            questionType:
+                              type: string
+                              description: Type of Question - Single/Multiple
+                            minSelection:
+                              type: integer
+                              description: Minimum options to be selected
+                            maxSelection:
+                              type: integer
+                              description: Maximum options that can be selected
+                      description:
+                        type: string
+                        description: Text content of the question
+                      options:
+                        type: array
+                        properties:
+                          description:
+                            type: string
+
+
+
+      responses:
+        201:
+          description: Successfully created a poll
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+                description: Id of the poll
+              pollname:
+                type: string
+                description: Name of the poll
+              questions:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      description: Number of the question in the poll
+                    description:
+                      type: string
+                      description: content of this note
+                    options:
+                      type: array
+                      items:
+                        type: object
+                        additionalProperties:
+                          type: string
+                          properties:
+                            id:
+                              type: integer
+                            description:
+                              type: string
+
+                    settings:
+                      type: object
+                      additionalProperties:
+                        type: string
+                        properties:
+                          id:
+                            type: integer
+                            description: Question number in the poll
+                          questionType:
+                            type: string
+                            description: Type of Question - Single/Multiple
+                          minSelection:
+                            type: integer
+                            description: Minimum options to be selected
+                          maxSelection:
+                            type: integer
+                            description: Maximum options that can be selected
+                          questionId:
+                            type: integer
+                            description: "Question index"
+
+  /poll/getrequest/{pollid}:
+    get:
+      operationId: poll.getrequest
+      tags:
+        - Poll
+      summary: Read one poll
+      description: Read one poll
+      parameters:
+        - name: pollid
+          in: path
+          description: Id of the poll to get
+          type: integer
+          required: True
+      responses:
+        200:
+          description: Successfully read poll from poll data operation
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+                description: Id of the poll
+              pollname:
+                type: string
+                description: Name of the poll
+              questions:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      description: Question number in the poll
+                    description:
+                      type: string
+                      description: content of this note
+                    options:
+                      type: array
+                      items:
+                        type: object
+                        additionalProperties:
+                          type: string
+                          properties:
+                            id:
+                              type: integer
+                            description:
+                              type: string
+                    settings:
+                      type: object
+                      additionalProperties:
+                        type: string
+                        properties:
+                          id:
+                            type: integer
+                            description: Question number in the poll
+                          questionType:
+                            type: string
+                            description: Type of Question - Single/Multiple
+                          minSelection:
+                            type: integer
+                            description: Minimum options to be selected
+                          maxSelection:
+                            type: integer
+                            description: Maximum options that can be selected
+                          questionId:
+                            type: integer
+                            description: "Question index"
+
+  /poll/submit:
+    post:
+      operationId: poll.submit
+      tags:
+        - Poll
+      summary: Submit a poll
+      description: Submit a poll response
+      parameters:
+        - name: response
+          in: body
+          description: Poll response to submit
+          required: True
+          schema:
+            type: object
+            properties:
+              userId:
+                type: integer
+                description: User id of the user
+              pollRequestId:
+                type: integer
+                description: poll request id
+              answers:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    questionId:
+                      type: integer
+                      description: Question number in the poll to answer
+                    optionId:
+                      type: array
+                      description: selected option for the question
+                      items:
+                        type: integer
+
+
+      responses:
+        201:
+          description: Poll response successfully submitted
+          schema:
+            type: object
+            properties:
+              responseid:
+                type: integer
+                description: Index of the response in all poll responses
+              userId:
+                type: integer
+                description: Name of the poll
+              pollRequestId:
+                type: integer
+                description: poll request id
+              answers:
+                type: array
+                additionalProperties:
+                  type: string
+                  properties:
+                    Id:
+                      type: integer
+                      description: Index of the response in all responses
+                    questionId:
+                      type: integer
+                      description: Id of the Question to answer
+                    optionId:
+                      type: integer
+                      description: selected option for the question
+                    pollResponseId:
+                      type: integer
+                      description: Id of the poll response
+              pollRequest:
+                type: object
+                additionalProperties:
+                  type: string
+                  properties:
+                    id:
+                      type: integer
+                      description: Id of the poll
+                    questions:
+                      type: array
+                      items:
+                        type: object
+                        additionalProperties:
+                          type: string
+                          properties:
+                            id:
+                              type: integer
+                              description: Id of question in the poll
+                            description:
+                              type: string
+                              description: Text content of the question
+                            options:
+                              type: array
+                              items:
+                                type: object
+                                additionalProperties:
+                                  type: string
+                                  properties:
+                                    id:
+                                      type: integer
+                                    description:
+                                      type: string
+                            settings:
+                              type: object
+                              additionalProperties:
+                                type: string
+                                properties:
+                                  id:
+                                    type: integer
+                                    description: Question number in the poll
+                                  questionType:
+                                    type: string
+                                    description: Type of Question - Single/Multiple
+                                  minSelection:
+                                    type: string
+                                    description: Minimum options to be selected
+                                  maxSelection:
+                                    type: string
+                                    description: Maximum options that can be selected
+                                  questionId:
+                                    type: integer
+                                    description: "Question index"
+  /poll/getresponse/{responseid}:
+    get:
+      operationId: poll.getresponse
+      tags:
+        - Poll
+      summary: Read response
+      description: Read response submitted
+      parameters:
+        - name: responseid
+          in: path
+          description: Id of the response to get
+          type: integer
+          required: True
+      responses:
+        201:
+          description: Poll response successfully submitted
+          schema:
+            type: object
+            properties:
+              responseid:
+                type: integer
+                description: Index of the response in all poll responses
+              userId:
+                type: integer
+                description: Name of the poll
+              pollRequestId:
+                type: integer
+                description: poll request id
+              answers:
+                type: array
+                additionalProperties:
+                  type: string
+                  properties:
+                    Id:
+                      type: integer
+                      description: Index of the response in all responses
+                    questionId:
+                      type: integer
+                      description: Id of the Question to answer
+                    optionId:
+                      type: integer
+                      description: selected option for the question
+                    pollResponseId:
+                      type: integer
+                      description: Id of the poll response
+              pollRequest:
+                type: object
+                additionalProperties:
+                  type: string
+                  properties:
+                    id:
+                      type: integer
+                      description: Id of the poll
+                    questions:
+                      type: array
+                      items:
+                        type: object
+                        additionalProperties:
+                          type: string
+                          properties:
+                            id:
+                              type: integer
+                              description: Id of question in the poll
+                            description:
+                              type: string
+                              description: Text content of the question
+                            options:
+                              type: array
+                              items:
+                                type: object
+                                additionalProperties:
+                                  type: string
+                                  properties:
+                                    id:
+                                      type: integer
+                                    description:
+                                      type: string
+                            settings:
+                              type: object
+                              additionalProperties:
+                                type: string
+                                properties:
+                                  id:
+                                    type: integer
+                                    description: Question number in the poll
+                                  questionType:
+                                    type: string
+                                    description: Type of Question - Single/Multiple
+                                  minSelection:
+                                    type: string
+                                    description: Minimum options to be selected
+                                  maxSelection:
+                                    type: string
+                                    description: Maximum options that can be selected
+                                  questionId:
+                                    type: integer
+                                    description: "Question index"
+
+  /poll/{pollid}:
+    delete:
+      operationId: poll.delete
+      tags:
+        - Poll
+      summary: Delete a poll from the poll list
+      description: Delete a poll
+      parameters:
+        - name: pollid
+          in: path
+          description: Id of note
+          type: integer
+          required: True
+      responses:
+        200:
+          description: Successfully deleted a note
+

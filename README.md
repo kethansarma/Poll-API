@@ -10,8 +10,8 @@
 - Install requirements.txt using command pip install -r requirements.txt after activating python through commandline using python command.
 - Check that you are n the directory where requirements file is availble.
 - Please do 
-- Run cretedatabase.py file to create a database.
-- The run server.py
+- Run cretedatabase.py file to create a database with inputs from provided testdata or data as in form of data in testdata.
+- Then run server.py
 - In commandline a redirecting text (of the server) 127.0.0.1 with host = 5555 appears.
 - Then followed by welcome page you are redirected to a swaggerUI to Test the API.
 - In swaggerUI click on text Poll to see the API requests availble.

@@ -6,6 +6,7 @@
 
 - Install Anaconda package manager from [here](https://www.anaconda.com/products/individual)
 - Download the above provided environment (env.yml) and import into Anaconda by using left side "Environment" tab.
+- Once environment is created activate it using command - activate <name of environment> with command line.
 - Else install python directly from [here](https://www.python.org/downloads/release/python-377/).
 - Install requirements.txt using command pip install -r requirements.txt after activating python through commandline using python command.
 - Check that you are n the directory where requirements file is availble.

@@ -8,8 +8,9 @@
 - Download the above provided environment (env.yml) and import into Anaconda by using left side "Environment" tab.
 - Once environment is created activate it with command - activate *name of environment* using command line.
 - Else install python directly from [here](https://www.python.org/downloads/release/python-377/).
-- Install requirements.txt using command pip install -r requirements.txt after activating python through commandline using python command.
-- Check that you are n the directory where requirements file is availble.
+- For Anaconda users you need to type python in command line after activating the environment and while using command line just type python in cmd to activate python.
+- From here the steps are common - Install requirements.txt using command pip install -r requirements.txt after activating python. 
+- Check that you are in the directory where requirements file is availble.
 - Run createdatabase.py file to create a database with inputs from provided testdata or data as in form of data in testdata.
 - Then run server.py
 - In commandline a redirecting text (of the server) host = 127.0.0.1 with port = 5555 appears.

@@ -37,7 +37,7 @@ marshmallow==3.7.0
 marshmallow-sqlalchemy==0.23.1
 mccabe==0.6.1
 mistune==0.8.4
-nbconvert==5.6.1
+nbconvert==6.3.0
 nbformat==5.0.7
 notebook==6.0.3
 openapi-spec-validator==0.2.8

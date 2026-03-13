@@ -12,7 +12,7 @@
 - From here the steps are common - Install requirements.txt using command pip install -r requirements.txt after activating python. 
 - Check that you are in the directory where requirements file is available.
 - Run createdatabase.py file to create a database with inputs from provided testdata or data as in form of data in testdata.
-- Then run server.py
+- Then run server.py for running
 - In commandline a redirecting text (of the server) host = 127.0.0.1 with port = 5555 appears.
 - Then followed by welcome page you are redirected to a swaggerUI to Test the API.
 - In swaggerUI click on text Poll to see the API requests available.

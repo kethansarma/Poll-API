@@ -16,7 +16,7 @@ connex_app = config.connex_app
 connex_app.add_api("swagger.yml")
 
 
-# Create a URL route in our application for "/people"
+# Create a URL route in our application for "/"
 @connex_app.route("/")
 def home():
     """
@@ -44,6 +44,10 @@ def poll(data=""):
     """
 
     return data
+
+@connex_app.route("/hello")
+def hello():
+    return "hello"
 
 if __name__ == "__main__":
     connex_app.run(debug=True,host="127.0.0.1",port=5555)
